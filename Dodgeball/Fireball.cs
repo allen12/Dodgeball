@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
 namespace Dodgeball
 {
     /// <summary>
@@ -10,7 +15,7 @@ namespace Dodgeball
     /// kill the player if this object intersects with the player object.
     /// 
     /// </summary>
-    class Fireball
+    class Fireball : Entity
     {
         /* Represents the number of ticks that must pass before a new fireball is generated. 
             "Normal" difficulty is 3. */
@@ -28,16 +33,24 @@ namespace Dodgeball
         /* A running list of currently active fireballs */
         private static List<Fireball> fireballs = new List<Fireball>();
 
-        private int X;
-        private int Y;
-
         public Fireball(int startX, int startY)
         {
             X = startX;
             Y = startY;
         }
 
-        public void advance()
+        public Fireball(Texture2D fireball, int startX, int startY)
+        {
+            X = startX;
+            Y = startY;
+            img = fireball;
+        }
+
+        /// <summary>
+        /// Advances this fireball, which moves each fireball down by the value
+        /// of speed.
+        /// </summary>
+        public void advanceGameTick()
         {
             this.Y += speed;
 
@@ -45,11 +58,20 @@ namespace Dodgeball
                 fireballs.Remove(this);
         }
 
+        /// <summary>
+        /// Set the number of game ticks to wait before generating a new fireball.
+        /// Standard difficulty is 3.
+        /// </summary>
+        /// <param name="fireballDelay"></param>
         public static void setFireballDelay(int fireballDelay)
         {
             delay = fireballDelay;
         }
 
+        /// <summary>
+        /// Set the vertical speed of each fireball
+        /// </summary>
+        /// <param name="s">Number of pixels to travel every game tick</param>
         public static void setSpeed(int s)
         {
             speed = s;
@@ -96,7 +118,7 @@ namespace Dodgeball
             // Each tick advances the Y-component of the fireball by some number of pixels
             foreach (Fireball fb in fireballs)
             {
-                fb.advance();
+                fb.advanceGameTick();
             }
 
             // Generate a new fireball if current game tick reaches the delay threshold
