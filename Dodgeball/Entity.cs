@@ -23,8 +23,22 @@ namespace Dodgeball
         }
 
         /* Location of the entity */
-        protected int X;
-        protected int Y;
+        protected int x;
+        public int X
+        {
+            get
+            {
+                return x;
+            }
+        }
+        protected int y;
+        public int Y
+        {
+            get
+            {
+                return y;
+            }
+        }
 
         /// <summary>
         /// Subclasses implementing this must provide how the state of this

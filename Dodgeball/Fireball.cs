@@ -35,14 +35,14 @@ namespace Dodgeball
 
         public Fireball(int startX, int startY)
         {
-            X = startX;
-            Y = startY;
+            x = startX;
+            y = startY;
         }
 
         public Fireball(Texture2D fireball, int startX, int startY)
         {
-            X = startX;
-            Y = startY;
+            x = startX;
+            y = startY;
             img = fireball;
         }
 
@@ -50,11 +50,11 @@ namespace Dodgeball
         /// Advances this fireball, which moves each fireball down by the value
         /// of speed.
         /// </summary>
-        public void advanceGameTick()
+        public override void advanceGameTick()
         {
-            this.Y += speed;
+            this.y += speed;
 
-            if (Y >= remove)
+            if (y >= remove)
                 fireballs.Remove(this);
         }
 
