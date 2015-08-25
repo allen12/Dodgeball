@@ -39,10 +39,9 @@ namespace Dodgeball
             y = startY;
         }
 
-        public Fireball(Texture2D fireball, int startX, int startY)
+        public Fireball(Texture2D fireball, int startX, int startY) 
+            : this(startX, startY)
         {
-            x = startX;
-            y = startY;
             img = fireball;
         }
 
