@@ -52,6 +52,12 @@ namespace Dodgeball
         public abstract void advanceGameTick();
 
         /// <summary>
+        /// Subclasses implementing this must provide how this object is to
+        /// be drawn in the game window, to be called each game tick.
+        /// </summary>
+        public abstract void draw(SpriteBatch sp);
+
+        /// <summary>
         /// Checks to see if this object touches, collides, or intersects with
         /// the given Entity object.
         /// </summary>

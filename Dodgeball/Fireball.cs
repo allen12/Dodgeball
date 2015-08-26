@@ -124,5 +124,13 @@ namespace Dodgeball
             if (currentGameTick % delay == 0)
                 generateFireball();
         }
+
+        public override void draw(SpriteBatch sb)
+        {
+            const float SCALE = 0.03f;
+
+            sb.Draw(img, new Vector2(x, y), new Rectangle(0, 0, img.Width, img.Height), Color.White, 0.0f,
+                                        new Vector2(0, 0), SCALE, SpriteEffects.None, 1.0f);
+        }
     }
 }
