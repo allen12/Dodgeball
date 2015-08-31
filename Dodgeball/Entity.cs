@@ -16,40 +16,26 @@ namespace Dodgeball
         protected static Texture2D img;
         public static Texture2D Img
         {
-            get
-            {
-                return img;
-            }
-
-            set
-            {
-                img = value;
-            }
+            get; set;
         }
 
         /* Location of the entity */
         protected int x;
         public int X
         {
-            get
-            {
-                return x;
-            }
+            get;
         }
         protected int y;
         public int Y
         {
-            get
-            {
-                return y;
-            }
+            get;
         }
 
         /// <summary>
         /// Subclasses implementing this must provide how the state of this
         /// entity changes with each game tick.
         /// </summary>
-        public abstract void advanceGameTick();
+        public abstract void advanceGameTick(int currentGameTick);
 
         /// <summary>
         /// Subclasses implementing this must provide how this object is to

@@ -32,6 +32,10 @@ namespace Dodgeball
 
         /* A running list of currently active fireballs */
         private static List<Fireball> fireballs = new List<Fireball>();
+        public static List<Fireball> Fireballs
+        {
+            get;
+        }
 
         public Fireball(int startX, int startY)
         {
@@ -49,7 +53,7 @@ namespace Dodgeball
         /// Advances this fireball, which moves each fireball down by the value
         /// of speed.
         /// </summary>
-        public override void advanceGameTick()
+        public override void advanceGameTick(int currentGameTick)
         {
             this.y += speed;
 
@@ -112,26 +116,14 @@ namespace Dodgeball
             return fireball;
         }
 
-        public static void advanceGameTick(int currentGameTick)
+
+        public static void drawFireballs(SpriteBatch sb)
         {
-            // Each tick advances the Y-component of the fireball by some number of pixels
+            const float SCALE = 0.03f;
+
             foreach (Fireball fb in fireballs)
-            {
-                fb.advanceGameTick();
-            }
-
-            // Generate a new fireball if current game tick reaches the delay threshold
-            if (currentGameTick % delay == 0)
-                generateFireball();
+                sb.Draw(Fireball.Img, new Vector2(fb.X, fb.Y), new Rectangle(0, 0, fb.Y, fb.X), Color.White, 0.0f, new Vector2(0, 0), SCALE, SpriteEffects.None, 1.0f);
         }
-
-        //public static void drawFireballs(SpriteBatch sb)
-        //{
-        //    const float SCALE = 0.03f;
-
-        //    foreach (Fireball fb in fireballs)
-        //        sb.Draw(fb, new Vector2(fb.X, fb.Y), new Rectangle(0, 0, fb.Y, fb.X), Color.White, 0.0f, new Vector2(0, 0), SCALE, SpriteEffects.None, 1.0f);
-        //}
 
         public override void draw(SpriteBatch sb)
         {
