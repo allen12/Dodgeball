@@ -57,9 +57,6 @@ namespace Dodgeball
         public override void advanceGameTick(int currentGameTick)
         {
             this.y += speed;
-
-            if (y >= remove)
-                fireballs.Remove(this);
         }
 
         /// <summary>
@@ -107,23 +104,15 @@ namespace Dodgeball
         /// <param name="highX">High x bound</param>
         /// <param name="lowY">Low y bound</param>
         /// <param name="highY">High y bound</param>
-        /// <returns>A new fireball</returns>
-        public static Fireball generateFireball()
+        /// <returns>A new fireball, or null if the delay timing is not correct.</returns>
+        public static Fireball generateFireball(int currentGameTick)
         {
+            if (currentGameTick % delay != 0)
+                return null;
+
             Random random = new Random();
 
-            Fireball fireball = new Fireball(random.Next(lowX, highX), random.Next(lowY, highY));
-            fireballs.Add(fireball);
-            return fireball;
-        }
-
-
-        public static void drawFireballs(SpriteBatch sb)
-        {
-            const float SCALE = 0.03f;
-
-            foreach (Fireball fb in fireballs)
-                sb.Draw(Fireball.Img, new Vector2(fb.X, fb.Y), new Rectangle(0, 0, fb.Y, fb.X), Color.White, 0.0f, new Vector2(0, 0), SCALE, SpriteEffects.None, 1.0f);
+            return new Fireball(random.Next(lowX, highX), random.Next(lowY, highY));
         }
 
         public override void draw(SpriteBatch sb)

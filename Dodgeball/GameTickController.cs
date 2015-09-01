@@ -19,12 +19,18 @@ namespace Dodgeball
         static GameTickController()
         {
             gameTick = 0;
+
             entities = new List<Entity>();
         }
 
         public static void setSpriteBatch(SpriteBatch s)
         {
             sb = s;
+        }
+
+        public static void addEntity(Entity e)
+        {
+            entities.Add(e);
         }
 
         public static void advanceGameTick()
@@ -43,6 +49,10 @@ namespace Dodgeball
                         entities.Remove(e);
                 }
             }
+
+            Fireball newFireball = Fireball.generateFireball(gameTick);
+            if (newFireball != null)
+                entities.Add(newFireball);
         }
 
 
