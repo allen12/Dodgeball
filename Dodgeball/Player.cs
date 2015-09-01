@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 
 using System;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace Dodgeball
 {
@@ -52,7 +53,10 @@ namespace Dodgeball
 
         public override void draw(SpriteBatch sp)
         {
-            throw new NotImplementedException();
+            const float SCALE = 0.5f;
+
+            sp.Draw(img, new Vector2(x, y), new Rectangle(0, 0, img.Width, img.Height),
+                Color.White, 0.0f, new Vector2(0, 0), SCALE, SpriteEffects.None, 1.0f);
         }
 
 
