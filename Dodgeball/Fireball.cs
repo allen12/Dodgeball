@@ -23,6 +23,7 @@ namespace Dodgeball
 
         /* The Y-coordinate limit at which the fireball is removed */
         private static int remove = 460;
+        public static int Remove { get; }
 
         private static int speed = 2;
         private static int lowX = 0;
