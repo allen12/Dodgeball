@@ -19,6 +19,9 @@ namespace Dodgeball
         public Player(Texture2D txt2D)
         {
             img = txt2D;
+
+            x = 300;
+            y = 300;
         }
 
         public override void advanceGameTick(int currentGameTick)
@@ -28,26 +31,41 @@ namespace Dodgeball
 
             // Reads user input and checks bounds
             if (KBS.IsKeyDown(Keys.Down) && !Bounds.BoundedDown(x, y))
-                y -= 2;
-            if (KBS.IsKeyDown(Keys.Up) && !Bounds.BoundedUp(x, y))
                 y += 2;
+            if (KBS.IsKeyDown(Keys.Up) && !Bounds.BoundedUp(x, y))
+                y -= 2;
             if (KBS.IsKeyDown(Keys.Left) && !Bounds.BoundedLeft(x, y))
-                x += 2;
-            if (KBS.IsKeyDown(Keys.Right) && !Bounds.BoundedRight(x, y))
                 x -= 2;
+            if (KBS.IsKeyDown(Keys.Right) && !Bounds.BoundedRight(x, y))
+                x += 2;
 
             // Player wins if his y-component is below 30
             if (y < 30)
             {
+                Console.WriteLine("woah you won");
                 Environment.Exit(0);
+           }
+
+            Console.WriteLine(GameTickController.Entities.Count);
+            // Quits the game is a fireball touches the player
+            foreach (Entity fb in GameTickController.Entities)
+            {
+                if (fb is Player)
+                    continue;
+
+                //Console.WriteLine(fb.GetType().Name + fb.getRectangle());
+                
+
+                if (this.intersects(fb))
+                {
+                    Console.WriteLine(this.getRectangle());
+                    Console.WriteLine(fb.getRectangle());
+                    Environment.Exit(0);
+                }
             }
 
-            // Quits the game is a fireball touches the player
-            foreach (Fireball fb in Fireball.Fireballs)
-            {
-                if (this.intersects(fb))
-                    Environment.Exit(0);
-            }
+
+            Console.WriteLine(this.getRectangle());
 
         }
 

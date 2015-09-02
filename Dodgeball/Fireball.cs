@@ -17,6 +17,10 @@ namespace Dodgeball
     /// </summary>
     class Fireball : Entity
     {
+        private static float SCALE = 0.03f;
+        private static Texture2D fireballImg;
+        public static Texture2D FireballImg { set { fireballImg = value; } }
+
         /* Represents the number of ticks that must pass before a new fireball is generated. 
             "Normal" difficulty is 3. */
         private static int delay;
@@ -31,12 +35,6 @@ namespace Dodgeball
         private static int lowY = 40;
         private static int highY = 40;
 
-        /* A running list of currently active fireballs */
-        private static List<Fireball> fireballs = new List<Fireball>();
-        public static List<Fireball> Fireballs
-        {
-            get;
-        }
 
         public Fireball(int startX, int startY)
         {
@@ -117,10 +115,13 @@ namespace Dodgeball
 
         public override void draw(SpriteBatch sb)
         {
-            const float SCALE = 0.03f;
-
-            sb.Draw(img, new Vector2(x, y), new Rectangle(0, 0, img.Width, img.Height), Color.White, 0.0f,
+            sb.Draw(fireballImg, new Vector2(x, y), new Rectangle(0, 0, fireballImg.Width, fireballImg.Height), Color.White, 0.0f,
                                         new Vector2(0, 0), SCALE, SpriteEffects.None, 1.0f);
+        }
+
+        public override Rectangle getRectangle()
+        {
+            return new Rectangle(x, y, (int)(fireballImg.Width*SCALE), (int)(fireballImg.Height*SCALE));
         }
 
     }

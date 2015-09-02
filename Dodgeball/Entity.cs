@@ -13,8 +13,8 @@ namespace Dodgeball
     abstract class Entity
     {
         /* Image of the entity */
-        protected static Texture2D img;
-        public static Texture2D Img
+        protected Texture2D img;
+        public Texture2D Img
         {
             get; set;
         }
@@ -58,7 +58,7 @@ namespace Dodgeball
         /// Gets a rectangle representation of the sprite denoted by this entity
         /// </summary>
         /// <returns>A Rectangle vector object</returns>
-        public Rectangle getRectangle()
+        public virtual Rectangle getRectangle()
         {
             return new Rectangle(x, y, img.Width, img.Height);
         }

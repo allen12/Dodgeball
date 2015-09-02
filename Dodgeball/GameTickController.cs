@@ -13,6 +13,7 @@ namespace Dodgeball
     {
         private static int gameTick;
         private static List<Entity> entities;
+        public static List<Entity> Entities { get { return entities; } }
 
         private static SpriteBatch sb;
         
@@ -41,7 +42,6 @@ namespace Dodgeball
             foreach (Entity e in entities)
             {
                 e.advanceGameTick(++gameTick);
-                e.draw(sb);
 
                 if (e is Fireball)
                 {
@@ -55,7 +55,15 @@ namespace Dodgeball
                 entities.Add(newFireball);
         }
 
+        public static void drawEntities()
+        {
+            
 
+            foreach (Entity e in entities)
+                e.draw(sb);
+
+           
+        }
 
 
     }

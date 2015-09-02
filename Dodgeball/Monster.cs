@@ -18,6 +18,8 @@ namespace Dodgeball
         public Monster(Texture2D i)
         {
             img = i;
+            x = 200;
+            y = 40;
         }
 
         public override void advanceGameTick(int currentGameTick)
@@ -28,7 +30,7 @@ namespace Dodgeball
             else
                 x -= 6;
 
-            if (x >= 20 || x <= -350)
+            if (x >= 400 || x <= 14)
                 direction *= -1;
         }
 
