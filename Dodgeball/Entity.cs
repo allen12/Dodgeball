@@ -51,7 +51,10 @@ namespace Dodgeball
         /// <returns>True if the entities intersect, false otherwise</returns>
         public bool intersects(Entity other)
         {
-            return getRectangle().Intersects(other.getRectangle());
+            Rectangle t = this.getRectangle();
+            Rectangle r = other.getRectangle();
+
+            return r.Width > 0 && r.Height > 0 && t.Width > 0 && t.Height > 0 && r.X < t.X + t.Width && r.X + r.Width > t.X && r.Y < t.Y + t.Height && r.Y + r.Height > t.Y;
         }
 
         /// <summary>
