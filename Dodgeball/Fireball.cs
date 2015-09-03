@@ -18,23 +18,23 @@ namespace Dodgeball
     class Fireball : Entity
     {
         private static float SCALE = 0.03f;
+
         private static Texture2D fireballImg;
         public static Texture2D FireballImg { set { fireballImg = value; } }
 
         /* Represents the number of ticks that must pass before a new fireball is generated. 
             "Normal" difficulty is 3. */
-        private static int delay;
+        private static int delay = 3;
 
         /* The Y-coordinate limit at which the fireball is removed */
         private static int remove = 460;
-        public static int Remove { get; }
+        public static int Remove { get; set; }
 
         private static int speed = 2;
         private static int lowX = 0;
         private static int highX = 450;
         private static int lowY = 40;
         private static int highY = 40;
-
 
         public Fireball(int startX, int startY)
         {
@@ -45,7 +45,7 @@ namespace Dodgeball
         public Fireball(Texture2D fireball, int startX, int startY) 
             : this(startX, startY)
         {
-            img = fireball;
+            fireballImg = fireball;
         }
 
         /// <summary>
@@ -68,7 +68,8 @@ namespace Dodgeball
         }
 
         /// <summary>
-        /// Set the vertical speed of each fireball
+        /// Set the vertical speed of each fireball to move each game tick.
+        /// Default speed is 2 pixels.
         /// </summary>
         /// <param name="s">Number of pixels to travel every game tick</param>
         public static void setSpeed(int s)
@@ -121,7 +122,7 @@ namespace Dodgeball
 
         public override Rectangle getRectangle()
         {
-            return new Rectangle(x, y, (int)(fireballImg.Width*SCALE), (int)(fireballImg.Height*SCALE));
+            return new Rectangle(x+3, y+3, (int)(fireballImg.Width*SCALE)-3, (int)(fireballImg.Height*SCALE)-3);
         }
 
     }

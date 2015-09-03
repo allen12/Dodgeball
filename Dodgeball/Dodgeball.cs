@@ -19,15 +19,11 @@ namespace Dodgeball
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
-
-        private Rectangle mapRectangle; // Rectangle for the map
+        
         private Texture2D map;
 
         private SoundEffect backgroundMusic;
         
-        
-
         public Dodgeball()
             : base()
         {
@@ -47,36 +43,28 @@ namespace Dodgeball
 
             GameTickController.setSpriteBatch(spriteBatch);
 
-            Fireball.setFireballDelay(4);
-            Fireball.setSpeed(2);
+            Fireball.setFireballDelay(10);
+            Fireball.setSpeed(5);
         }
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        /// all content.
         /// </summary>
         protected override void LoadContent()
-        {
-
+        { 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            
             map = Content.Load<Texture2D>("BallGame");
             Entity player = new Player(Content.Load<Texture2D>("John front"));
             Entity monster = new Monster(Content.Load<Texture2D>("Monster2"));
-
             GameTickController.addEntity(player);
             GameTickController.addEntity(monster);
-
             Fireball.FireballImg = Content.Load<Texture2D>("fireball");
 
             backgroundMusic = Content.Load<SoundEffect>("Paradise Town");
-
-            mapRectangle = new Rectangle(0, 0, map.Width, map.Height);
-
-            DrawStuff.drawMusic(backgroundMusic);
+            backgroundMusic.Play();
         }
 
         /// <summary>
@@ -110,46 +98,15 @@ namespace Dodgeball
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            DrawStuff.drawMap(spriteBatch, map);
+            spriteBatch.Draw(map, new Vector2(0, 0), new Rectangle(0, 0, map.Width, map.Height),
+                Color.White, 0.0f, new Vector2(0, 0), 0.6f, SpriteEffects.None, 1.0f);
             GameTickController.drawEntities();
             spriteBatch.End();
             base.Draw(gameTime);
         }
 
-    }
-
-    public static class DrawStuff
-    {
-        public static void drawPerson(SpriteBatch spriteBatch, Texture2D person, int x, int y, int changeX, int changeY, float scale)
-        {
-            spriteBatch.Draw(person, new Vector2(x - changeX, y - changeY), new Rectangle(0, 0, person.Width, person.Height),
-                Color.White, 0.0f, new Vector2(0, 0), scale, SpriteEffects.None, 1.0f);
-        }
-
-        public static void drawMap(SpriteBatch spriteBatch, Texture2D map)
-        {
-            spriteBatch.Draw(map, new Vector2(0, 0), new Rectangle(0, 0, map.Width, map.Height),
-                Color.White, 0.0f, new Vector2(0, 0), 0.6f, SpriteEffects.None, 1.0f);
-        }
-
-        public static void drawMusic(SoundEffect sound)
-        {
-            sound.Play();
-        }
-
-        public static void stopMusic(SoundEffect sound)
-        {
-            sound.Dispose();
-        }
-
-        public static void draw(SpriteBatch spriteBatch, Texture2D thing, int x, int y, float scale)
-        {
-            spriteBatch.Draw(thing, new Vector2(x, y), new Rectangle(0, 0, thing.Width, thing.Height), Color.White, 0.0f,
-                new Vector2(0, 0), scale, SpriteEffects.None, 1.0f);
-        }
     }
 }

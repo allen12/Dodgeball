@@ -12,6 +12,8 @@ namespace Dodgeball
     /// </summary>
     class Player : Entity
     {
+        const float SCALE = 0.5f;
+
         /// <summary>
         /// Default Person constructor
         /// </summary>
@@ -20,8 +22,9 @@ namespace Dodgeball
         {
             img = txt2D;
 
-            x = 300;
-            y = 300;
+            // starting location of player
+            x = 234;
+            y = 455;
         }
 
         public override void advanceGameTick(int currentGameTick)
@@ -46,32 +49,31 @@ namespace Dodgeball
                 Environment.Exit(0);
            }
 
-            Console.WriteLine(GameTickController.Entities.Count);
             // Quits the game is a fireball touches the player
             foreach (Entity fb in GameTickController.Entities)
             {
+                // Ignore the player himself
                 if (fb is Player)
                     continue;
 
-                //Console.WriteLine(fb.GetType().Name + fb.getRectangle());
-                
-
                 if (this.intersects(fb))
                 {
-                    Console.WriteLine(this.getRectangle());
-                    Console.WriteLine(fb.getRectangle());
                     Environment.Exit(0);
                 }
             }
 
+          
 
-            Console.WriteLine(this.getRectangle());
+        }
 
+        public override Rectangle getRectangle()
+        {
+            return new Rectangle(x+5, y+5, (int)(SCALE * img.Width)-5, (int)(SCALE * img.Height)-5);
         }
 
         public override void draw(SpriteBatch sp)
         {
-            const float SCALE = 0.5f;
+         
 
             sp.Draw(img, new Vector2(x, y), new Rectangle(0, 0, img.Width, img.Height),
                 Color.White, 0.0f, new Vector2(0, 0), SCALE, SpriteEffects.None, 1.0f);

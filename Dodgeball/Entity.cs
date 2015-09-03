@@ -58,7 +58,8 @@ namespace Dodgeball
         }
 
         /// <summary>
-        /// Gets a rectangle representation of the sprite denoted by this entity
+        /// Gets a rectangle representation of the sprite denoted by this entity.
+        /// This can be overriden to create fine-tuning of rectangle representations.
         /// </summary>
         /// <returns>A Rectangle vector object</returns>
         public virtual Rectangle getRectangle()
